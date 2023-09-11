@@ -1,0 +1,171 @@
+.report_bg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.608);
+    z-index: 999;
+    height: 100vh;
+    width: 100vw;
+    /* overflow: hidden; */
+}
+.report_body {
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+    position: relative;
+    min-width: 590px;
+    max-width: 750px;
+    transition: all ease-in-out 0.5s;
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
+    background: white;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.report_header {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.739);
+}
+
+.report_issued_time {
+    /* display: none; */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 8px;
+}
+.report_header > img {
+    width: 120px;
+}
+
+.report_title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.go_back_up {
+    /* color: white; */
+    color: #00000086;
+    display: inline;
+    top: 95%;
+    left: 98%;
+    /* left: 0;
+    top: 0; */
+    width: 100%;
+    /* height: 100%; */
+    height: 40px;
+    font-size: 35px;
+    position: sticky;
+    cursor: pointer;
+    z-index: 10;
+    /* bottom: 20px;
+    right: 20px;
+     */
+}
+
+.go_back_up:hover {
+    color: #000000;
+}
+
+.graphs_row {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.report_line-eff {
+    width: 50%;
+    height: 33%;
+    min-height: 210px;
+    max-height: 270px;
+    min-width: 270px;
+    max-width: 330px;
+    margin-bottom: 2em;
+    cursor: pointer;
+}
+
+.report_overall-eff {
+    scale: 1.3;
+}
+
+.main_info_table {
+    /* transition: all ease-in-out 0.5s; */
+    transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+}
+
+.main_info_table > thead > tr > th {
+    font-size: calc(10px + 0.1vw);
+    text-align: center;
+}
+
+.main_info_table > tbody > tr > td {
+    font-size: calc(10px + 0.1vw);
+    text-align: center;
+}
+
+.report_issues_graph {
+    /* height: 200px; */
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report_remarks_text {
+    text-align: left;
+    padding-top: 10px;
+}
+
+.report_remarks_text > b {
+    color: var(--juffali-main);
+}
+
+
+@media only screen and (max-width: 800px) {
+    .report_body{
+        width: 90vw !important;
+        min-width: none !important;
+        /* scale: 0.6; */
+        /* width: 100vw;
+        min-width: none;
+        min-height: none; */
+        /* height: 100vh; */
+    }
+     .graphs_row{
+        scale: 0.7;
+        display: none;
+        width: 80vw !important;
+        min-width: 380px !important;
+        max-width: 390px !important;
+        /* width: 90%; */
+        /* flex-wrap: wrap; */
+        /* scale: 0.7; */
+    }
+    
+    .report_line-eff{
+        width: 90px !important;
+        height: 5dvh !important;
+        /* height: 90px;
+        min-width: 50px;
+        min-height: 40px; */
+    }
+}

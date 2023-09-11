@@ -1,0 +1,32 @@
+.generateReportParent::-webkit-scrollbar{
+    display: none !important
+}
+.generate_div::-webkit-scrollbar {
+    display: none !important
+}
+.generate_div {
+    position: relative;
+    column-gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: scroll !important;
+}
+
+.generate_div:hover{
+    font-weight: 900;
+}
+
+.report_filter{
+    padding: 10px;
+    position: absolute;
+    background: white;
+    max-width: fit-content;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 10;
+    border-radius: 5px;
+}

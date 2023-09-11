@@ -1,0 +1,17 @@
+.calendar_picker_el{
+    /* position: relative; */
+}
+.calendar_picker_div{
+    /* position: absolute;
+    top: -20px; */
+    padding: 10px;
+    /* z-index: 10; */
+    background: white;
+}
+.calendar_picker{
+    background: white !important;
+    border-radius: 5px;
+}
+.rdrDefinedRangesWrapper {
+    display: none !important;
+}

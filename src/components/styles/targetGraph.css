@@ -1,0 +1,42 @@
+.info_graph{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* height:40vh;
+    width: 80vw; */
+}
+
+.info_graph > span{
+    /* position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto; */
+
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%,10%);
+    /* transform: translateY(50%);*/
+    font-size: calc(10px + 1vw);
+    font-weight: 700;
+}
+
+.info_graph > span.red{
+    color: red
+}
+
+.info_graph > span.green{
+    color: green
+}
+
+.info_graph > span.orange{
+    color: orange
+}
+
+.info_graph > span.blue{
+    color: blue
+}

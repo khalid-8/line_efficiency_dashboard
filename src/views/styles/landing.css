@@ -1,0 +1,211 @@
+.landing-page{
+    margin-top: 100px !important;
+    margin-bottom: 20px;
+}
+
+.generate_report{
+    position: relative;
+    display: inline-block;
+}
+
+.generate_report:hover::after {
+    position: absolute;
+    content: attr(data-tooltip);
+    bottom: -2.5em;
+    right: -5em;
+    background-color: #333;
+    color: white;
+    padding: .25em .5em;
+    font-size: .8em;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+
+.landing_nav{
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    display: flex;
+    background: var(--juffali-main);
+    border-radius: 5px;
+    /* justify-content: space-evenly; */
+
+}
+.landing_nav > nav{
+    color: var(--text-color);
+    width: 200px;
+    padding: 10px;
+    border-right: .5px solid gray;
+    cursor: pointer;
+}
+.landing_nav > nav:first-of-type{
+    border-radius: 5px 0 0 5px;
+}
+.landing_nav > nav:last-of-type{
+    border: 0;
+    border-radius: 0 5px 5px 0;
+}
+.landing_nav > nav.active{
+    background: var(--main-color) !important;
+}
+
+.display_menu{
+    width: 90vw;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+ul > li {
+    padding: 6px 0;
+}
+
+ul > li > a {
+    --fill-color: #198CE6;
+    position: relative;
+    display: block;
+    padding: 4px 0;
+    font: 700 2vw Raleway, sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-text-stroke: .5px var(--fill-color);
+    background: linear-gradient(var(--fill-color) 0 100%) left / 0 no-repeat;
+    color: transparent;
+    background-clip: text ;
+    -webkit-background-clip: text;
+    transition: 0.5s linear; 
+    margin-right: 10px;
+}
+
+ul > li > a:hover {
+    /* color: transparent;   */
+    background-size: 100%;
+}
+
+.dashboard-eff{
+    /* width: 90vw;
+    height: 90vh; */
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-col{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    column-gap: max(3vw, 30px);
+    row-gap: 20px;
+    height: 30vh;
+
+}
+.dashboard-col > .line-eff{
+    width: calc(50px + 10vw);
+}
+
+.line-eff{
+    position: relative;
+    cursor: pointer;    
+    /* width: 100% !important; */
+    /* width: 100px !important; */
+}
+
+.eff-gadget{
+    width: 100% !important;
+    height: 100%;
+}
+.overall-eff{
+    scale: 1.3;
+    /* grid-column: 1/-1; */
+    /* grid-column: span 2;
+    grid-row: span 2; */
+
+}
+
+.remarks-card {
+    position: absolute !important;
+    top: calc(50px + 8vw) !important;
+    z-index: 5;
+    white-space: pre-wrap;
+    /* align-items: start */
+}
+
+@media only screen and (max-width: 900px) {
+    .landing_nav{
+        width: 90%;
+        font-size: 12px;
+    }
+
+    .dashboard-eff{
+        row-gap: 10px;
+    }
+
+    .dashboard-col{
+        width: 90vw;
+        height: fit-content;
+        /* height: 25vh; */
+        flex-wrap: wrap;
+        /* row-gap: 20px; */
+
+    }
+
+    .dashboard-col > .line-eff{
+        /* width: calc(50px + 10vw); */
+        /* flex: calc(50px + 10vw); */
+        /* scale: 0.5; */
+        flex: 200px;
+        height: 200px;
+    }
+
+    .dashboard-col:nth-child(2) > .line-eff:nth-child(1){
+        order: 2;
+    }
+
+    .dashboard-col:nth-child(2) > .line-eff:nth-child(2){
+        order: 1;
+        flex: 0 0 100%;
+    }
+
+    .dashboard-col:nth-child(2) > .line-eff:nth-child(3){
+        order: 3;
+    }
+
+    /* .dashboard-col:nth-child(1){
+        order: 2;
+    }
+    .dashboard-col:nth-child(2){
+        order: 1;
+        flex: 100%;
+    }
+    .dashboard-col:nth-child(3){
+        order: 3;
+    } */
+
+    .dashboard-col > .overall-eff{
+        /* flex: 100%;
+        order: 5 !important; */
+        /* scale: 0.5; */
+        margin: 40px 0;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    .dashboard-col > .line-eff{
+        flex: 120px;
+    }
+    .dashboard-col:nth-child(2) > .line-eff:nth-child(2){
+        order: 1;
+        flex: 300px;
+    }
+}

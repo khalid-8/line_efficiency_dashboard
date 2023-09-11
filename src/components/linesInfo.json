@@ -1,0 +1,81 @@
+{
+    "lines": [
+        {
+            "name": "LINE 1 - MRT",
+            "id": "line1",
+            "multiProduct": false,
+            "color": "#050A30"
+        },
+        {
+            "name": "LINE 2 - SRT/SPP/LSS",
+            "id": "line2",
+            "multiProduct": true,
+            "color1": "#54d2d2",
+            "color": "#074824",
+            "lines": [
+                {
+                    "name": "SRT",
+                    "id": "0",
+                    "multiProduct": false,
+                    "color": "#0b743a"
+                },
+                {
+                    "name": "SPP",
+                    "id": "1",
+                    "multiProduct": false,
+                    "color": "#6a917c"
+                },
+                {
+                    "name": "LSS",
+                    "id": "2",
+                    "multiProduct": false,
+                    "color": "#053219"
+                }
+            ]
+        },
+        {
+            "name": "LINE 3 - 40R/FB4",
+            "id": "line5",
+            "multiProduct": true,
+            "color": "#ff6150",
+            "lines": [
+                {
+                    "name": "40RU",
+                    "id": "0",
+                    "multiProduct": false,
+                    "color": "#ffc0b9"
+                },
+                {
+                    "name": "FB4",
+                    "id": "1",
+                    "multiProduct": false,
+                    "color": "#ff8173"
+                }
+            ]
+        },
+        {
+            "name": "LINE 4 - 42 Series",
+            "id": "line4",
+            "multiProduct": false,
+            "color": "#f8aa4b"
+        },
+        {
+            "name": "LINE 5 - AHU",
+            "id": "line3",
+            "multiProduct": false,
+            "color": "#ffcb00"
+        },
+        {
+            "name": "LINE 6 - CDU",
+            "id": "line6",
+            "multiProduct": false,
+            "color": "#7D80DA"
+        },
+        {
+            "name": "LINE 7 - WRAC",
+            "id": "line7",
+            "multiProduct": false,
+            "color": "#145DA0"
+        }
+    ]
+}

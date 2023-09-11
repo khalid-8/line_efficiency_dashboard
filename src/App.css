@@ -1,0 +1,92 @@
+:root{
+  --main-color: #152C73;
+  --juffali-main: #0032c8;
+  --secondary-color: #43c7ff;
+  --text-color: #ffffff;
+  --text-black: rgb(35, 35, 35);
+  background: rgb(35, 35, 35) !important;
+
+}
+
+.App {
+  min-height: 100vh;
+  width: 100vw !important;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff !important;
+  /* height: 150vh; */
+  /* min-height: 100vh; */
+  /* padding-bottom: 250px; */
+  /* min-height: calc(100vh - calc(160px + 2.5vh)); */
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  /* min-height: 160vh; */
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+main{
+  min-height: calc(100vh - calc(160px + 1vh));
+  /* padding-bottom: 150px; */
+  margin-top: 90px !important;
+  margin-bottom: 100px !important;
+  /* min-height: 100vh !important;  */
+}
+
+/* width */
+/*
+::-webkit-scrollbar {
+  width: 10px;
+}
+*/
+
+/* Track */
+/* ::-webkit-scrollbar-track {
+  background: #452020;
+} */
+
+/* Handle */
+/* ::-webkit-scrollbar-thumb {
+  background: var(--juffali-main);
+  border-radius: 50px;
+} */
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color);
+} */

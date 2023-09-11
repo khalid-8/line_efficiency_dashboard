@@ -1,0 +1,169 @@
+{
+    "issues": [
+        {
+            "cause": "Manpower-related",
+            "id": "manpower",
+            "emails": "emad.janbi@samco.com.sa",
+            "bg": "rgba(75, 192, 192, 0.2)"
+        },
+        {
+            "cause": "Material Delay",
+            "id": "material",
+          "sub": [
+              {
+                  "cause": "Warehouse",
+                  "id": "warehouse",
+                  "emails": [
+                    "rafael.garcia@samco.com.sa",
+                    "richard.agapay@samco.com.sa",
+                    "vergil.vergara@samco.com.sa",
+                    "armel.ramos@samco.com.sa",
+                    "turki.mutairi@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+              },
+              {
+                  "cause": "Production Feeder Areas",
+                  "id": "feeder",
+                  "emails": [
+                    "mac.joel@samco.com.sa",
+                    "monchito.rodriguez@samco.com.sa",
+                    "salman.sayed@samco.com.sa",
+                    "emad.janbi@samco.com.sa",
+                    "tony.elamparo@samco.com.sa",
+                    "walter.ranjo@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+              },
+              {
+                  "cause": "Sheet Metal",
+                  "id": "sheet",
+                  "emails": [
+                    "amjad.jahri@samco.com.sa",
+                    "dave.palaypayon@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+              }
+          ],
+            "subMenu": true,
+            "bg": "rgba(255, 205, 86, 0.2)"
+        },
+        {
+            "cause": "Machine Breakdown (Inc. Tool/Equipment)",
+            "id": "equipment",
+            "sub": [
+                {
+                    "cause": "Maintenance",
+                    "id": "maintenance",
+                    "emails": ["elmer.goze@samco.com.sa", "roy.gomez@samco.com.sa", "emad.janbi@samco.com.sa", "production_line_efficiency@samco.com.sa"]
+                },
+                {
+                    "cause": "MRF",
+                    "id": "mrf",
+                    "emails": ["chris.blaza@samco.com.sa", "jun.fabros@samco.com.sa", "nino.lopez@samco.com.sa", "production_line_efficiency@samco.com.sa"]
+                }
+            ],
+            "subMenu": true,
+            "bg": "rgba(54, 162, 235, 0.2)"
+        },
+        {
+            "cause": "Method",
+            "id": "method",
+            "sub": [
+                {
+                    "cause": "Scheduling Issues (PPC)",
+                    "id": "ppc",
+                  "emails": [
+                    "eric.lomahan@samco.com.sa",
+                    "rico.carino@samco.com.sa",
+                    "neil.villarino@samco.com.sa",
+                    "janandrew.solis@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+                },
+                {
+                    "cause": "Finished Goods Movement (Shipping)",
+                    "id": "shipping",
+                  "emails": [ "rafael.garcia@samco.com.sa", "ammar.siddiq@samco.com.sa", "production_line_efficiency@samco.com.sa" ]
+                },
+                {
+                    "cause": "Inspection Process Issues (Quality)",
+                    "id": "quality",
+                  "emails": [
+                    "atif.mumtaz@carrier.com",
+                    "noel.cabacungan@samco.com.sa",
+                    "othman.ali@samco.com.sa",
+                    "mohammad.ulanday@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+                }
+            ],
+            "subMenu": true,
+            "bg": "rgba(153, 102, 255, 0.2)"
+        },
+        {
+            "cause": "Others",
+            "id": "other",
+            "sub": [
+                {
+                    "cause": "Engineering Issues",
+                    "id": "eng",
+                  "emails": [
+                    "osama.alnakhebi@samco.com.sa",
+                    "syed.munawerahmed@samco.com.sa",
+                    "Hazem.Khodair@Carrier.com",
+                    "joseph.deasis@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+                },
+                {
+                    "cause": "Power Outage",
+                    "id": "power",
+                    "emails": ["chris.blaza@samco.com.sa", "jun.fabros@samco.com.sa", "production_line_efficiency@samco.com.sa"]
+                },
+                {
+                    "cause": "Information Technology Issues",
+                    "id": "it",
+                    "emails": ["azfar.ansari@samco.com.sa", "khalid.alnahdi@samco.com.sa", "production_line_efficiency@samco.com.sa"]
+                },
+                {
+                    "cause": "Government-Related Issues",
+                    "id": "gov",
+                  "emails": [
+                    "asim.nakshabandi@samco.com.sa",
+                    "emad.janbi@samco.com.sa",
+                    "mujeeb.khan@samco.com.sa",
+                    "mohammed.ghallab@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+                },
+                {
+                    "cause": "Environmental Issues",
+                    "id": "env",
+                  "emails": [
+                    "mohammed.salah@samco.com.sa",
+                    "asim.nakshabandi@samco.com.sa",
+                    "emad.janbi@samco.com.sa",
+                    "mohammed.ghallab@samco.com.sa",
+                    "production_line_efficiency@samco.com.sa"
+                  ]
+                },
+                {
+                    "cause": "Non-Standard Operation",
+                    "id": "nso",
+                    "emails": ["emad.janbi@samco.com.sa", "production_line_efficiency@samco.com.sa"]
+                }
+            ],
+            "subMenu": true,
+            "bg": "rgba(201, 203, 207, 0.2)"
+        },
+        {
+            "cause": "Production Comment",
+            "id": "prodcomment",
+            "notify": false,
+            "allDay": false,
+            "bg": "rgba(229, 58, 66, 0.2)",
+            "emails": ""
+        }
+    ]
+}

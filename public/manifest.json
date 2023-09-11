@@ -1,0 +1,32 @@
+{
+  "theme_color": "#0032c8",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "https://khalid-8.github.io/SAMCO_PROD_LINE_DASHBOARD",
+  "short_name": "Dashboard",
+  "name": "SAMCO - Line Efficiency Dashboard",
+  "description": "'Line Efficiency Dashboard' is a web application to monitor the efficiency of SAMCO production lines, created by Khalid Alnahdi",
+  "icons": [
+      {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+      },
+      {
+          "src": "icons/icon-256x256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+      },
+      {
+          "src": "icons/icon-384x384.png",
+          "sizes": "384x384",
+          "type": "image/png"
+      },
+      {
+          "src": "icons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+      }
+  ]
+}
