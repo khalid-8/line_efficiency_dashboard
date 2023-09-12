@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/line_efficiency_dashboard/static/css/main.cd6032ac.css",
+    "main.js": "/line_efficiency_dashboard/static/js/main.e020871a.js",
+    "service-worker.js": "/line_efficiency_dashboard/service-worker.js",
+    "index.html": "/line_efficiency_dashboard/index.html",
+    "main.cd6032ac.css.map": "/line_efficiency_dashboard/static/css/main.cd6032ac.css.map",
+    "main.e020871a.js.map": "/line_efficiency_dashboard/static/js/main.e020871a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd6032ac.css",
+    "static/js/main.e020871a.js"
+  ]
+}
