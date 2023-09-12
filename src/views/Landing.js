@@ -66,7 +66,7 @@ export default function Landing() {
         let totalTarget = 0
         let TotalActual = 0
         linesData.forEach((item) => {
-            totalTarget+= parseInt(item.data?.[idxToNav(activeView)]?.target)//overallTargetCalc(item, activeView) 
+            totalTarget+= parseInt(getTarget(item?.data?.[idxToNav(activeView)], idxToNav(activeView)) )//overallTargetCalc(item, activeView) 
             TotalActual+= parseInt(item?.data?.[idxToNav(activeView)]?.actual)
         })
 
@@ -92,6 +92,14 @@ export default function Landing() {
         }
         return name
     }
+
+    function getTarget(item, type){
+        if (type !== "daily") return item?.target
+        let target = item?.actualTarget ? (parseInt(item?.actualTarget) > item?.target ? parseInt(item?.actualTarget) : item?.target) : item?.target
+        // (parseInt(item?.data?.[idxToNav(activeView)]?.actualTarget) > item?.data?.[idxToNav(activeView)]?.target ? item?.data?.[idxToNav(activeView)]?.actualTarget : item?.data?.[idxToNav(activeView)]?.target) : item?.data?.[idxToNav(activeView)]?.target
+        return target
+    }
+
     const handleNavClick = (i) => {
         if (i === activeView) return
         navRefs.current[activeView]?.classList.remove("active")
@@ -146,7 +154,7 @@ export default function Landing() {
                                 }}>
 
                                 {showRemarks[i] && item?.data?.[idxToNav(activeView)]?.remarks?.length > 0 && <ShowRemarks line={item?.data?.[idxToNav(activeView)]} period={idxToNav(activeView)} showFullRemarks={setShowFullRemarks}/>}
-                                <TargetGraph target={item?.data?.[idxToNav(activeView)]?.target} actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
+                                <TargetGraph target={ getTarget(item?.data?.[idxToNav(activeView)], idxToNav(activeView)) } actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
                             </span>
                         ))}
                     </div>
@@ -162,7 +170,7 @@ export default function Landing() {
                             }}>
 
                                 {showRemarks[i+5] && <ShowRemarks line={item?.data?.[idxToNav(activeView)]} period={idxToNav(activeView)} showFullRemarks={setShowFullRemarks}/>}
-                                <TargetGraph target={item?.data?.[idxToNav(activeView)]?.target} actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
+                                <TargetGraph target={getTarget(item?.data?.[idxToNav(activeView)], idxToNav(activeView)) } actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
                             </span>
                         ))}
 
@@ -181,7 +189,7 @@ export default function Landing() {
                                 }}>
                                 
                                 {showRemarks[i+6] && <ShowRemarks line={item?.data?.[idxToNav(activeView)]} period={idxToNav(activeView)} showFullRemarks={setShowFullRemarks}/>}
-                                <TargetGraph target={item?.data?.[idxToNav(activeView)]?.target} actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
+                                <TargetGraph target={getTarget(item?.data?.[idxToNav(activeView)], idxToNav(activeView)) } actual={item?.data?.[idxToNav(activeView)]?.actual} eff={item?.data?.[idxToNav(activeView)]?.eff} title={`${item?.name?.replace("LINE -", "")}`}/>
                             </span>
                         ))}
                     </div>

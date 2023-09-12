@@ -3,7 +3,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://khalid-8.github.io/SAMCO_PROD_LINE_DASHBOARD",
+  "start_url": "https://khalid-8.github.io/line_efficiency_dashboard",
   "short_name": "Dashboard",
   "name": "SAMCO - Line Efficiency Dashboard",
   "description": "'Line Efficiency Dashboard' is a web application to monitor the efficiency of SAMCO production lines, created by Khalid Alnahdi",

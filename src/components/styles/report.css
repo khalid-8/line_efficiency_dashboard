@@ -141,31 +141,72 @@
 
 
 @media only screen and (max-width: 800px) {
+
     .report_body{
         width: 90vw !important;
-        min-width: none !important;
+        /* width: 750px !important; */
+        min-width: 370px !important;
+        overflow-x: hidden;
         /* scale: 0.6; */
         /* width: 100vw;
         min-width: none;
         min-height: none; */
         /* height: 100vh; */
     }
+
+    .mobile_print {
+        width: 750px !important;
+    }
+    .mobile_print > div > .graphs_row{
+        flex-wrap: nowrap !important;
+        /* width: 750px !important; */
+    }
+
+    .mobile_print > div > .graphs_row > .report_line-eff{
+        min-height: 250px !important;
+        min-width: 250px !important;
+        width: 250px !important;
+        height: 250px !important;
+        /* margin-bottom: 0 !important; */
+    }
+
+    .mobile_print > div > .graphs_row > .report_overall-eff {
+        scale: 1.3;
+    }
+    .mobile_print > .report_issues_graph{
+        width: 700px !important;
+        height: 600px !important;
+    }
+    
+
+    .mobile_print > .report_line-eff{
+        width: 400px !important;
+    }
+    
      .graphs_row{
-        scale: 0.7;
+        /* scale: 0.5; */
+        /* width: 100% !important; */
+        /* scale: 0.7;
         display: none;
         width: 80vw !important;
         min-width: 380px !important;
-        max-width: 390px !important;
+        max-width: 390px !important; */
         /* width: 90%; */
-        /* flex-wrap: wrap; */
+        flex-wrap: wrap;
         /* scale: 0.7; */
     }
     
     .report_line-eff{
-        width: 90px !important;
-        height: 5dvh !important;
+        /* width: fit-content !important; */
         /* height: 90px;
         min-width: 50px;
         min-height: 40px; */
     }
+
+    .report_issues_graph {
+        height: 400px !important;
+        
+        /* height: 400px !important; */
+    }
+
 }

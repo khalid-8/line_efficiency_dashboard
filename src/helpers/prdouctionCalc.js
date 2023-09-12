@@ -165,14 +165,9 @@ class CALC extends React.Component {
 
         const todaysData = this.getValues(data, isTodaysData, pastDate, subLine, dayData[idx]);
 
-        console.log("🚀 ~ file: prdouctionCalc.js:118 ~ CALC ~ todaysData:", todaysData);
         const { actual, dailyTarget, hourlyInput, lines, monthlyTarget, weeklyTarget, ...newObj } = dayData[idx];
-        console.log("🚀 ~ file: prdouctionCalc.js:145 ~ CALC ~ newObj:", newObj);
 
         const calculated = this.calcValues(todaysData.actualTarget ? (parseInt(todaysData.actualTarget) > todaysData.dailyTarget? todaysData.actualTarget : todaysData.dailyTarget) : todaysData.dailyTarget, todaysData.actual);
-        console.log("🚀 ~ file: prdouctionCalc.js:173 ~ CALC ~ calculated:", calculated)
-        console.log("🚀 ~ file: prdouctionCalc.js:173 ~ CALC ~ todaysData.actualTarget ? (parseInt(todaysData.actualTarget) > todaysData.dailyTarget? parseInt(todaysData.actualTarget) : todaysData.dailyTarget) : todaysData.dailyTarget:", todaysData.actualTarget ? (parseInt(todaysData.actualTarget) > todaysData.dailyTarget? parseInt(todaysData.actualTarget) : todaysData.dailyTarget) : todaysData.dailyTarget)
-        console.log("🚀 ~ file: prdouctionCalc.js:173 ~ CALC ~ todaysData.actualTarget :", todaysData.actualTarget )
 
         return {
             gap: calculated[0],
@@ -534,6 +529,7 @@ class CALC extends React.Component {
     };
 
     updatingStyling = async (card, hasPrinted, mobile=false) => {
+        console.log(card.children)
         // if the printing has completed update the styles to the original values
         if (hasPrinted) {
             card.style.removeProperty("height");
@@ -545,11 +541,17 @@ class CALC extends React.Component {
             card.style.setProperty("height", "90vh", "important");
 
             if (mobile){
-                card.style.setProperty("scale", "0.6", "important")
-                card.style.setProperty("width", "90vw", "important")
-                card.children[2].childNodes[0].style.setProperty("scale", "0.7", "important")
-                card.children[2].childNodes[1].style.setProperty("scale", "0.7", "important")
-                card.children[2].childNodes[2].style.setProperty("scale", "0.7", "important")
+                // card.style.setProperty("scale", "0.6", "important")
+                card.classList.remove("mobile_print")
+                // card.style.setProperty("width", "90vw", "important")
+                // card.children[2].style.setProperty("flex-wrap", "wrap", "important")
+                // card.children[2].childNodes[0].style.setProperty("flex-wrap", "wrap", "important")
+                // card.children[2].childNodes[1].style.setProperty("flex-wrap", "wrap", "important")
+                // card.children[2].childNodes[2].style.setProperty("flex-wrap", "wrap", "important")
+                // card.children[4].style.setProperty("width", "90%", "important")
+
+                // card.children[2].childNodes[1].style.setProperty("scale", "0.7", "important")
+                // card.children[2].childNodes[2].style.setProperty("scale", "0.7", "important")
             }
             return;
         }
@@ -566,26 +568,23 @@ class CALC extends React.Component {
         // card.style.setProperty("width", "750px", "important")
         if(mobile){
             // return console.log(card.children)
-            card.style.setProperty("scale", "1", "important")
-            card.style.setProperty("width", "fit-content", "important")
-            card.children[2].childNodes[0].style.setProperty("scale", "1", "important")
-            card.children[2].childNodes[1].style.setProperty("scale", "1", "important")
-            card.children[2].childNodes[2].style.setProperty("scale", "1", "important")
-
+            card.classList.add("mobile_print")
+            // card.style.setProperty("scale", "1", "important")
+            // card.style.setProperty("width", "750px", "important")
+            // card.children[2].childNodes[0].style.removeProperty("flex-wrap")
+            // card.children[2].childNodes[1].style.removeProperty("flex-wrap")
+            // card.children[2].childNodes[2].style.removeProperty("flex-wrap")
+            // card.children[4].style.setProperty("width", "750px", "important")
             // card.style.setProperty("height", "750px", "important")
         }
         card.style.setProperty("height", "fit-content", "important");
 
-        console.log(card)
         //cardNodes.button.style = "display: none;"
     };
 
     SendPDF = async (report) => {
         let isMobile = false
-        if (
-            navigator.userAgent.match(/Android/i) ||
-            navigator.userAgent.match(/iPhone/i)
-        ) isMobile = true
+        if ( window.screen.width < "801") isMobile = true
 
         await this.updatingStyling(report, false, isMobile);
         var opt = {
@@ -612,7 +611,7 @@ class CALC extends React.Component {
                 const pdfFile = await pdfObj.output("datauristring");
                 console.log(pdfFile);
 
-                await this.updatingStyling(report, true);
+                await this.updatingStyling(report, true, isMobile);
                 return pdfFile;
             })
             .catch((err) => {
@@ -624,8 +623,10 @@ class CALC extends React.Component {
         // const pages = report
         // console.log("🚀 ~ file: prdouctionCalc.js:598 ~ CALC ~ downloadPDF= ~ report:", report.clientHeight)
         // console.log("🚀 ~ file: prdouctionCalc.js:598 ~ CALC ~ downloadPDF= ~ report:", report.scrollHeight)
-
-        await this.updatingStyling(report, false);
+        let isMobile = false
+        if ( window.screen.availWidth < 801) isMobile = true
+        
+        await this.updatingStyling(report, false, isMobile);
         var opt = {
             jsPDF: { format: "a4", orientation: "p" },
             margin: [5, 5, 5, 5],
@@ -649,7 +650,7 @@ class CALC extends React.Component {
                 //Save the file
 
                 pdfObj.save(name + ".pdf");
-                await this.updatingStyling(report, true);
+                await this.updatingStyling(report, true, isMobile);
             })
             .catch((err) => {
                 console.error("oops, something wents wrong!", err);

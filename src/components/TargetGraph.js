@@ -112,8 +112,7 @@ export default function TargetGraph({target, actual, eff, title, report}) {
             },
             legend: {
                 display: false,
-                maxWidth: 0,
-                maxHeight: 0
+                maxWidth: 59
             },
         },
         cutout: '70%',
@@ -345,15 +344,14 @@ export function IssuesGraph({lines}){
     }
 
     const options = {
-        scale: {
-            ticks: { min: 0 }
-        },
-        responsive: true,
         scales: {
             y: {
-                beginAtZero: true
+                ticks: {
+                    precision: 0
+                }
             }
         },
+       
         plugins: {
             title: {
                 display: true,
@@ -386,9 +384,16 @@ export function IssuesGraph({lines}){
             },
             legend: {
                 display: true,
-                maxWidth: 59
-            }
+                maxWidth: 59,
+                // labels: {
+                //     font: {
+                //         size: 10,
+                //     },
+                // }
+            },
         },
+        responsive: true,
+        maintainAspectRatio: false
     } 
     return(
         <Bar data={data} options={options}/>

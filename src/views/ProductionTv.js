@@ -8,21 +8,6 @@ import { CALC } from "../helpers";
 import linesInfo from "../components/linesInfo.json";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-const videoRunTimes = [
-    "0:30",
-    "2:30",
-    "4:30",
-    "6:30",
-    "8:30",
-    "10:30",
-    "12:30",
-    "14:30",
-    "16:30",
-    "18:30",
-    "20:30",
-    "22:30",
-];
-
 export default function ProductionTv() {
     const [todayValues, setTodayValues] = useState();
     const [lastWeekValues, setLastWeekValues] = useState();
@@ -31,7 +16,6 @@ export default function ProductionTv() {
     const [expected, setExpected] = useState([]);
     const [currentHourActual, setCurrentHourActual] = useState(0);
     const [weekRange, setWeekRange] = useState();
-    const [showVideo, setShowVideo] = useState(false);
     const [subLine, setSubLine] = useState();
     const [running, setRunning] = useState(true);
     const [currentLine, setCurrentLine] = useState()
@@ -47,6 +31,13 @@ export default function ProductionTv() {
 
     const header = document.getElementById("app_header");
     const footer = document.getElementById("app_footer");
+
+    function getTarget(item, type){
+        if (type !== "daily") return item?.target
+        let target = item?.actualTarget ? (parseInt(item?.actualTarget) > item?.target ? parseInt(item?.actualTarget) : item?.target) : item?.target
+        // (parseInt(item?.data?.[idxToNav(activeView)]?.actualTarget) > item?.data?.[idxToNav(activeView)]?.target ? item?.data?.[idxToNav(activeView)]?.actualTarget : item?.data?.[idxToNav(activeView)]?.target) : item?.data?.[idxToNav(activeView)]?.target
+        return target
+    }
 
     useEffect(() => {
         if (line === "line5") return setCurrentLine("line3")
@@ -155,15 +146,6 @@ export default function ProductionTv() {
         //let delay = 10 * 1 * 1000; // 10 seconds in msec
         let interval = setInterval(() => {
             let time = new Date();
-            // console.log(`${time.getHours()}:${time.getMinutes()}`);
-            // console.log(videoRunTimes.includes(`${time.getHours()}:${time.getMinutes()}`));
-            // if the current hour is 10 it will display instructions video and terminate after 5 mins
-            if (videoRunTimes.includes(`${time.getHours()}:${time.getMinutes()}`)) {
-                setShowVideo(true);
-                setTimeout(() => {
-                    setShowVideo(false);
-                }, 1000 * 60 * 3);
-            }
 
             if (time.getMinutes() === 0) {
                 const totalWorkingHrs =
@@ -185,215 +167,203 @@ export default function ProductionTv() {
 
     return (
         <main className="info-display">
-            {showVideo ? (
-                <div className="display_video">
-                    <video
-                        src="/dashboard/resoucres/Lead With Safety Commitments & Stop Work Authority.mp4"
-                        type="video/mp4"
-                        autoPlay
-                    />
-                </div>
-            ) : (
+            <div className="display-header">
+                <nav
+                    className="nav-back"
+                    onClick={() => {
+                        header.style.removeProperty("display");
+                        footer.style.removeProperty("display");
+                        setRunning(false);
+                        navigate(`/`);
+                    }}>
+                    <AiOutlineArrowLeft className="go_back_btn" />
+                    Dashboard
+                </nav>
+                {todayValues && 
+                    <h1>
+                    {subLine
+                        ? linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name
+                        : linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].name
+                    }
+                    </h1>
+                }
+            </div>
+
+            {todayValues && (
                 <>
-                    <div className="display-header">
-                        <nav
-                            className="nav-back"
-                            onClick={() => {
-                                header.style.removeProperty("display");
-                                footer.style.removeProperty("display");
-                                setRunning(false);
-                                navigate(`/`);
+                    <div className="logos">
+                        <div>
+                            <img
+                                src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/Juffali_Carrier.png`}
+                                className="carrier-juff-logo"
+                                alt="juffali carrier"
+                            />
+                        </div>
+                        <div>
+                            <img
+                                src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/iso-9001.png`}
+                                className="quality-logo"
+                                alt="juffali carrier"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/emirates-quality-mark.png`}
+                                className="quality-logo"
+                                alt="juffali carrier"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <Table responsive>
+                            <thead>
+                                <tr>
+                                    <th style={{ width: "50%" }}>
+                                        {datesDisplay} <Clock />
+                                    </th>
+                                    <th style={{ width: "50%" }} dangerouslySetInnerHTML={{ __html: weekRange }}>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </Table>
+                        <Table responsive striped bordered hover className="main-info-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th className="theader">Line Target</th>
+                                    <th className="theader">Actual Production</th>
+                                    <th className="theader">Internal Target</th>
+                                    <th className="theader">Gap</th>
+                                    <th className="theader">Efficiency</th>
+                                    <th className="theader" colSpan={3}>
+                                        Manpower
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="theader">Previous Week</td>
+                                    <td>{lastWeekValues?.target}</td>
+                                    <td>{lastWeekValues?.actual}</td>
+                                    <td style={{ color: "red" }}>N/A</td>
+                                    <td>{lastWeekValues?.gap}</td>
+                                    <td>{lastWeekValues?.eff}</td>
+                                    <td className="theader">Plan</td>
+                                    <td className="theader">Absentees</td>
+                                    <td className="theader">Actual</td>
+                                    {/* <td className='theader'>Daily Absentees</td>
+                            <th>{todayValues?.dailyAbs}</th> */}
+                                </tr>
+                                <tr>
+                                    <td className="theader">Daily</td>
+                                    <td>{todayValues?.target}</td>
+                                    <td>{todayValues?.actual}</td>
+                                    <td>{todayValues?.actualTarget}</td>
+                                    <td>{todayValues?.gap}</td>
+                                    <td>{todayValues?.eff}</td>
+                                    <td>{todayValues?.manpower?.plan}</td>
+                                    <td>{todayValues?.manpower?.abs}</td>
+                                    <td>{todayValues?.manpower?.actual}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="theader">Weekly</td>
+                                    <td>{weekValues?.target}</td>
+                                    <td>{weekValues?.actual}</td>
+                                    <td style={{ color: "red" }}>N/A</td>
+                                    <td>{weekValues?.gap}</td>
+                                    <td>{weekValues?.eff}</td>
+                                    <td className="theader" colSpan={2}>
+                                        Total Shift Hours
+                                    </td>
+                                    <th>{todayValues?.totalHrs}</th>
+                                </tr>
+
+                                <tr>
+                                    <td className="theader">Monthly</td>
+                                    <td>{monthValues?.target}</td>
+                                    <td>{monthValues?.actual}</td>
+                                    <td style={{ color: "red" }}>N/A</td>
+                                    <td>{monthValues?.gap}</td>
+                                    <td>{monthValues?.eff}</td>
+                                    <td className="theader" colSpan={2}>
+                                        Total Shifts Per Day
+                                    </td>
+                                    <th>{todayValues?.totalShifts}</th>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                    <div className="expected-prdouction-tv">
+                        <span className="hourly-data">
+                            <b>Previous Hours</b>
+                            <p>{todayValues?.actual}</p>
+                        </span>
+                        <span className={`hourly-data ${expected?.[0] > currentHourActual ? "red" : "green"}`}>
+                            <b>Current Hour Expected</b>
+                            <p>
+                                {expected?.[0] > 0 ||
+                                expected?.[0] === "Break Time" ||
+                                expected?.[0] === "End of Shift"
+                                    ? expected?.[0]
+                                    : 0}
+                            </p>
+                        </span>
+                        <span className={`hourly-data ${expected?.[0] > currentHourActual ? "red" : "green"}`}>
+                            <b>Current Hour Actual</b>
+                            <p>{currentHourActual}</p>
+                        </span>
+                    </div>
+                    <div className="charts animate-charts">
+                        {subLine &&
+                            <span className="current_product left" style={{
+                                color: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`,
+                                background: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`
                             }}>
-                            <AiOutlineArrowLeft className="go_back_btn" />
-                            Dashboard
-                        </nav>
-                        {todayValues && 
-                            <h1>
-                            {subLine
-                                ? linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name
-                                : linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].name
-                            }
-                            </h1>
+                                {linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name}
+                            </span>
+                        }
+                        <div>
+                            <TargetGraph
+                                target={lastWeekValues?.target}
+                                actual={lastWeekValues?.actual}
+                                eff={lastWeekValues?.eff}
+                                title={"Previous Week"}
+                            />
+                        </div>
+                        <div>
+                            <TargetGraph
+                                target={getTarget(todayValues, "daily")}
+                                actual={todayValues?.actual}
+                                eff={todayValues?.eff}
+                                title={"Daily"}
+                            />
+                        </div>
+                        <div>
+                            <TargetGraph
+                                target={todayValues?.weeklyTarget}
+                                actual={weekValues?.actual}
+                                eff={weekValues?.eff}
+                                title={"Weekly"}
+                            />
+                        </div>
+                        <div>
+                            <TargetGraph
+                                target={monthValues?.target}
+                                actual={monthValues?.actual}
+                                eff={monthValues?.eff}
+                                title={"Monthly"}
+                            />
+                        </div>
+                        
+                        {subLine &&
+                            <span className="current_product right" style={{
+                                color: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`,
+                                background: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`
+                            }}>
+                                {linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name}
+                            </span>
                         }
                     </div>
-
-                    {todayValues && (
-                        <>
-                            <div className="logos">
-                                <div>
-                                    <img
-                                        src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/Juffali_Carrier.png`}
-                                        className="carrier-juff-logo"
-                                        alt="juffali carrier"
-                                    />
-                                </div>
-                                <div>
-                                    <img
-                                        src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/iso-9001.png`}
-                                        className="quality-logo"
-                                        alt="juffali carrier"
-                                    />
-                                    <img
-                                        src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/emirates-quality-mark.png`}
-                                        className="quality-logo"
-                                        alt="juffali carrier"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <Table responsive>
-                                    <thead>
-                                        <tr>
-                                            <th style={{ width: "50%" }}>
-                                                {datesDisplay} <Clock />
-                                            </th>
-                                            <th style={{ width: "50%" }} dangerouslySetInnerHTML={{ __html: weekRange }}>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </Table>
-                                <Table responsive striped bordered hover className="main-info-table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th className="theader">Line Target</th>
-                                            <th className="theader">Actual Production</th>
-                                            <th className="theader">Internal Target</th>
-                                            <th className="theader">Gap</th>
-                                            <th className="theader">Efficiency</th>
-                                            <th className="theader" colSpan={3}>
-                                                Manpower
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="theader">Previous Week</td>
-                                            <td>{lastWeekValues?.target}</td>
-                                            <td>{lastWeekValues?.actual}</td>
-                                            <td style={{ color: "red" }}>N/A</td>
-                                            <td>{lastWeekValues?.gap}</td>
-                                            <td>{lastWeekValues?.eff}</td>
-                                            <td className="theader">Plan</td>
-                                            <td className="theader">Absentees</td>
-                                            <td className="theader">Actual</td>
-                                            {/* <td className='theader'>Daily Absentees</td>
-                                    <th>{todayValues?.dailyAbs}</th> */}
-                                        </tr>
-                                        <tr>
-                                            <td className="theader">Daily</td>
-                                            <td>{todayValues?.target}</td>
-                                            <td>{todayValues?.actual}</td>
-                                            <td>{todayValues?.actualTarget}</td>
-                                            <td>{todayValues?.gap}</td>
-                                            <td>{todayValues?.eff}</td>
-                                            <td>{todayValues?.manpower?.plan}</td>
-                                            <td>{todayValues?.manpower?.abs}</td>
-                                            <td>{todayValues?.manpower?.actual}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td className="theader">Weekly</td>
-                                            <td>{weekValues?.target}</td>
-                                            <td>{weekValues?.actual}</td>
-                                            <td style={{ color: "red" }}>N/A</td>
-                                            <td>{weekValues?.gap}</td>
-                                            <td>{weekValues?.eff}</td>
-                                            <td className="theader" colSpan={2}>
-                                                Total Shift Hours
-                                            </td>
-                                            <th>{todayValues?.totalHrs}</th>
-                                        </tr>
-
-                                        <tr>
-                                            <td className="theader">Monthly</td>
-                                            <td>{monthValues?.target}</td>
-                                            <td>{monthValues?.actual}</td>
-                                            <td style={{ color: "red" }}>N/A</td>
-                                            <td>{monthValues?.gap}</td>
-                                            <td>{monthValues?.eff}</td>
-                                            <td className="theader" colSpan={2}>
-                                                Total Shifts Per Day
-                                            </td>
-                                            <th>{todayValues?.totalShifts}</th>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
-                            <div className="expected-prdouction-tv">
-                                <span className="hourly-data">
-                                    <b>Previous Hours</b>
-                                    <p>{todayValues?.actual}</p>
-                                </span>
-                                <span className={`hourly-data ${expected?.[0] > currentHourActual ? "red" : "green"}`}>
-                                    <b>Current Hour Expected</b>
-                                    <p>
-                                        {expected?.[0] > 0 ||
-                                        expected?.[0] === "Break Time" ||
-                                        expected?.[0] === "End of Shift"
-                                            ? expected?.[0]
-                                            : 0}
-                                    </p>
-                                </span>
-                                <span className={`hourly-data ${expected?.[0] > currentHourActual ? "red" : "green"}`}>
-                                    <b>Current Hour Actual</b>
-                                    <p>{currentHourActual}</p>
-                                </span>
-                            </div>
-                            <div className="charts animate-charts">
-                                {subLine &&
-                                    <span className="current_product left" style={{
-                                        color: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`,
-                                        background: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`
-                                    }}>
-                                        {linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name}
-                                    </span>
-                                }
-                                <div>
-                                    <TargetGraph
-                                        target={lastWeekValues?.target}
-                                        actual={lastWeekValues?.actual}
-                                        eff={lastWeekValues?.eff}
-                                        title={"Previous Week"}
-                                    />
-                                </div>
-                                <div>
-                                    <TargetGraph
-                                        target={todayValues?.target}
-                                        actual={todayValues?.actual}
-                                        eff={todayValues?.eff}
-                                        title={"Daily"}
-                                    />
-                                </div>
-                                <div>
-                                    <TargetGraph
-                                        target={todayValues?.weeklyTarget}
-                                        actual={weekValues?.actual}
-                                        eff={weekValues?.eff}
-                                        title={"Weekly"}
-                                    />
-                                </div>
-                                <div>
-                                    <TargetGraph
-                                        target={monthValues?.target}
-                                        actual={monthValues?.actual}
-                                        eff={monthValues?.eff}
-                                        title={"Monthly"}
-                                    />
-                                </div>
-                                
-                                {subLine &&
-                                    <span className="current_product right" style={{
-                                        color: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`,
-                                        background: `${linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.color}`
-                                    }}>
-                                        {linesInfo.lines[parseInt(currentLine[currentLine.length - 1]) - 1].lines[subLine.id]?.name}
-                                    </span>
-                                }
-                            </div>
-                            <div></div>
-                        </>
-                    )}
+                    <div></div>
                 </>
             )}
         </main>

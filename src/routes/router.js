@@ -7,7 +7,7 @@ import { ForgotPassword, UpdateProfile } from "../views/Users";
 import NotAuthorized from "../views/NotAuthorized";
 
 export default function AppRoutes(){
-    const {currentUser, canAccess} = useAuthContext()
+    const {currentUser} = useAuthContext()
     const isApproved = currentUser?.claim?.approved
     
     return(
@@ -15,7 +15,11 @@ export default function AppRoutes(){
             <Route exact
                 path="/"
                 element={  
-                    <Landing/>
+                    <ProtectedRoute 
+                        redirectPath="/login"
+                        isAllowed={!!currentUser && isApproved}>
+                        <Landing/>
+                    </ProtectedRoute>
                 // <ProtectedRoute 
                 //     redirectPath="not_authorized"
                 //     isAllowed={canAccess}>
@@ -64,7 +68,7 @@ export default function AppRoutes(){
                 element={
                     <ProtectedRoute 
                         redirectPath="/login"
-                        isAllowed={!!currentUser && isApproved}>
+                        isAllowed={!!currentUser && isApproved && (currentUser?.claim?.admin || currentUser?.claim?.planner || currentUser?.claim?.production)}>
                             <DataInput/>
                     </ProtectedRoute>
                     
@@ -88,10 +92,9 @@ export default function AppRoutes(){
                 element={
                     <ProtectedRoute 
                         redirectPath="/"
-                        isAllowed={!!currentUser}>
-                            <DashBoard/>
-                    </ProtectedRoute>
-                    
+                        isAllowed={!!currentUser && isApproved}>
+                        <DashBoard/>
+                    </ProtectedRoute>        
                 }
             />
 
@@ -100,10 +103,9 @@ export default function AppRoutes(){
                 element={
                     <ProtectedRoute 
                         redirectPath="/"
-                        isAllowed={!!currentUser}>
-                            <UpdateProfile/>
+                        isAllowed={!!currentUser && isApproved}>
+                        <UpdateProfile/>
                     </ProtectedRoute>
-                    
                 }
             />
 
@@ -121,7 +123,11 @@ export default function AppRoutes(){
             <Route exact
                 path='/production/:line/'
                 element={
-                    <ProductionTv/>
+                    <ProtectedRoute 
+                        redirectPath="/l"
+                        isAllowed={!!currentUser && isApproved}>
+                        <ProductionTv/>
+                    </ProtectedRoute>
                 }
             />
 

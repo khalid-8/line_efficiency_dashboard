@@ -2,8 +2,9 @@ import React, {useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context';
 import "./styles/header.css"
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import useOutsideClick from './UseOutsideClick';
+import { Notify } from './Notification';
 
 export default function Header() {
     const {currentUser} = useAuthContext()
@@ -11,7 +12,14 @@ export default function Header() {
     return(
         <>
         {currentUser?.user?
-            <UserHeader/>
+            <>
+            {(currentUser?.claim?.admin || currentUser?.claim?.planner || currentUser?.claim?.production)?
+                <UserHeader/>
+                :
+                <NormalUser/>
+            }
+            </>
+            
             :
             <NonUserHeader/>
         }
@@ -77,6 +85,51 @@ function UserHeader(){
     );
 }
 
+function NormalUser(){
+    const navigate = useNavigate()
+    const {logOut} = useAuthContext()
+
+    const ref = useRef()
+
+    const handleLogOut = async() => {
+        try{
+            await logOut()
+            navigate('/login')
+        }catch{
+            Notify("couldn't sign out", true)
+        }
+    }
+
+    return(
+        <Navbar id="app_header" expand="md" ref={ref}>
+            <Container className='header_container'>
+                <span/>
+
+                <Navbar.Brand className="menu_title" onClick={() => navigate('/')}>
+                    <img src={`${process.env.REACT_APP_HOSTING_SUBFOLDER}/imgs/dashboard_logo.svg`}
+                    height="60"
+                    className="d-inline-block align-top"
+                    alt='dashboard logo'/>
+                </Navbar.Brand>
+                
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav" onClick={() => {
+                    const menu = document.querySelector(".navbar-collapse")
+                    if (menu.classList.contains("show")) menu.classList.remove("show")
+                }}>
+                    <Nav className="me-auto menu_navs">
+                        <Button variant='link' onClick={() => handleLogOut()}
+                            style={{textAlign: "Center", textDecoration: "none", color: "red", fontWeight: "bold"}}>
+                            Logout
+                        </Button>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
+}
+
+
 function NonUserHeader(){
     const navigate = useNavigate()
 
@@ -87,7 +140,7 @@ function NonUserHeader(){
     });
 
     return(
-        <Navbar id="app_header" expand="lg" ref={ref}>
+        <Navbar id="app_header" expand="md" ref={ref}>
             <Container className='header_container'>
                 <span></span>
                 <Navbar.Brand className="menu_title" onClick={() => navigate('/')}>

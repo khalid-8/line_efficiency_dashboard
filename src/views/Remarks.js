@@ -8,6 +8,13 @@ import { getRemarkTag } from "../components";
 export default function Remarks({ name, line, period, showFullRemarks }) {
     let remeraksArr = [];
 
+    function getTarget(item, type){
+        if (type !== "daily") return item?.target
+        let target = item?.actualTarget ? (parseInt(item?.actualTarget) > item?.target ? parseInt(item?.actualTarget) : item?.target) : item?.target
+        // (parseInt(item?.data?.[idxToNav(activeView)]?.actualTarget) > item?.data?.[idxToNav(activeView)]?.target ? item?.data?.[idxToNav(activeView)]?.actualTarget : item?.data?.[idxToNav(activeView)]?.target) : item?.data?.[idxToNav(activeView)]?.target
+        return target
+    }
+
     if ((period === "monthly" || period === "weekly" || period === "lastWeek") && line?.remarks.length > 0) {
         for (let idx in line.remarks) {
             console.log(idx);
@@ -44,7 +51,7 @@ export default function Remarks({ name, line, period, showFullRemarks }) {
                 <h3>{name}</h3>
 
                 <span className="remarks_eff">
-                    <TargetGraph target={line?.target} actual={line?.actual} eff={line?.eff} title={``} />
+                    <TargetGraph target={getTarget(line, period)} actual={line?.actual} eff={line?.eff} title={``} />
                 </span>
 
                 <Table responsive striped bordered className="mt-3 remarks-table-body">
